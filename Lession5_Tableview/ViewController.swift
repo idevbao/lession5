@@ -13,13 +13,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableViewHome: UITableView!
     
 
+    var myArrData = [[myData]]()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableViewHome.dataSource = self
         tableViewHome.delegate = self
-        DataManager.sharedInstance.GetData()
-
+        
+        myArrData = DataManager.sharedInstance.GetData()
         
 
         
@@ -37,14 +38,13 @@ class ViewController: UIViewController {
 }
 extension ViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let rowInSection = DataManager.sharedInstance.GetData()[section]
+        let rowInSection = myArrData[section]
         return  rowInSection.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! Cell_item
-        let dataItemGroup = DataManager.sharedInstance.GetData()
-        let dataItemName = dataItemGroup[indexPath.section][indexPath.row].nameData
+        let dataItemName = myArrData[indexPath.section][indexPath.row].nameData
         
         
         cell.lblNameItem.text = dataItemName
@@ -54,15 +54,26 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
         
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return  DataManager.sharedInstance.mutableDataItem.count
+        return  myArrData.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.frame.size.height/6
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let dataItemGroup = DataManager.sharedInstance.GetData()
-        let dataItemNameGroup = dataItemGroup[section]
-        return dataItemNameGroup[section].nameData
+        
+        return "\(myArrData[section][section].nameData!)"
+    }
+    
+    // xoa row
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+           
+            myArrData[indexPath.section].remove(at: indexPath.row)
+            print("row \(indexPath.row)")
+            
+            tableView.reloadData()
+         
+        }
     }
     
     

@@ -14,6 +14,7 @@ class DataManager: NSObject {
     var mutableDataItem:[myData]!
     var mutableDataItem1:[myData]!
 
+    var myArrData = [[myData]]()
     
     func GetData() -> [[myData] ]{
        
@@ -24,9 +25,12 @@ class DataManager: NSObject {
         
          mutableDataItem = [myData0, myData1]
          mutableDataItem1 = [myData2, myData3]
-       return [mutableDataItem,mutableDataItem1]
-        
+       myArrData = [mutableDataItem,mutableDataItem1]
+        return myArrData
     }
 
+    func remove(section: Int, row: Int) {
+        myArrData[section].remove(at: row)
+    }
 }
 
