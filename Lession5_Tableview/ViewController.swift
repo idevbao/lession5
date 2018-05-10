@@ -9,10 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var tableViewHome: UITableView!
     
-
+    
     var myArrData = [[myData]]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,19 +22,21 @@ class ViewController: UIViewController {
         
         myArrData = DataManager.sharedInstance.GetData()
         
-
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "add", style: .plain, target: self, action: #selector(addItem))
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Edit", style: .plain, target: self, action: #selector(editItem))
     }
-    @objc func addItem() {
+    @objc func editItem() {
         self.tableViewHome.reloadData()
+        print("Edit Item")
+        self.tableViewHome.setEditing(true, animated: true)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
 extension ViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,20 +63,53 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return "\(myArrData[section][section].nameData!)"
+        return " "// \(myArrData[section][section])
     }
     
     // xoa row
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-           
+            
             myArrData[indexPath.section].remove(at: indexPath.row)
             print("row \(indexPath.row)")
             
             tableView.reloadData()
-         
+            
         }
     }
+    // move row
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        var myItemSource:myData!
+        myItemSource = (myArrData[sourceIndexPath.section])[sourceIndexPath.row]
+
+        myArrData[sourceIndexPath.section].remove(at: sourceIndexPath.row)
+
+
+        myArrData[destinationIndexPath.section].insert(myItemSource, at: destinationIndexPath.row)
+        
+     
+        tableView.reloadData()
+        
+        
+    }
+    
+    // swipe
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let itemTrailing = itemTrailingSwipe(atIndex: indexPath)
+        return UISwipeActionsConfiguration.init(actions: [itemTrailing])
+    }
+    func itemTrailingSwipe(atIndex: IndexPath) -> UIContextualAction{
+        let itemTrailing = UIContextualAction(style: .destructive, title: "Dow") { (action, view, completion) in
+            completion(true)
+            print(self.myArrData[atIndex.section][atIndex.row].nameData)
+            
+        }
+        itemTrailing.image = #imageLiteral(resourceName: "dow")
+        itemTrailing.backgroundColor = .green
+    return itemTrailing
+    }
+    // load
+
     
     
 }
