@@ -22,6 +22,8 @@ class ViewController: UIViewController {
         
         myArrData = DataManager.sharedInstance.GetData()
         
+    
+        
         
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Edit", style: .plain, target: self, action: #selector(editItem))
@@ -108,7 +110,16 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
         itemTrailing.backgroundColor = .green
     return itemTrailing
     }
-    // load
+    // load data
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let sectionA = myArrData.count - 1
+        let rowA = (myArrData[indexPath.section].count)
+        
+        if (indexPath.section == sectionA && indexPath.row == rowA) {
+            print("load data func") // append item -> reload
+        }
+        
+    }
 
     
     

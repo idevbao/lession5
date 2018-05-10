@@ -18,6 +18,9 @@ class DataManager: NSObject {
     
     func GetData() -> [[myData] ]{
         
+
+       
+        
         let myData0 = myData.init(name: "CAPPUCINO NÓNG", urlImgInput: " ")
         let myData1 = myData.init(name: "CAMERICANO NÓNG", urlImgInput: " ")
         let myData2 = myData.init(name: "MOCHA ĐÁ XAY", urlImgInput: " ")
