@@ -10,10 +10,11 @@ import UIKit
 import ObjectMapper
 
 class myData: Mappable {
-
+    
     
     var nameData: String!
     var urlImgData: String!
+    var name:String!
     init(name: String, urlImgInput:String) {
         self.nameData = name
         self.urlImgData = urlImgInput
@@ -27,8 +28,10 @@ class myData: Mappable {
      "avatar_url": "https://avatars1.githubusercontent.com/u/1342004?v=4",
      */
     func mapping(map: Map) {
+        name <- map["name"]
         nameData <- map["full_name"]
-        urlImgData <- map["avatar_url"]
-    }
+        urlImgData <- map["owner.avatar_url"]
 
+    }
+    
 }

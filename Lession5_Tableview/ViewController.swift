@@ -9,24 +9,23 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+    static var sharedInstance = ViewController()
     @IBOutlet weak var tableViewHome: UITableView!
     
-    
-    var myArrData = [[myData]]()
+    var myArrData = [myData]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         tableViewHome.dataSource = self
         tableViewHome.delegate = self
         
-        myArrData = DataManager.sharedInstance.GetData()
-        
-    
-        
-        
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Edit", style: .plain, target: self, action: #selector(editItem))
+        
+        DataManager.sharedInstance.GetData(doneLoadData: { (arrLoad) in
+            OperationQueue.main.addOperation {
+                self.myArrData = arrLoad!
+                self.tableViewHome.reloadData()
+            }
+        })
     }
     @objc func editItem() {
         self.tableViewHome.reloadData()
@@ -37,23 +36,24 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
 }
 extension ViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let rowInSection = myArrData[section]
-        return  rowInSection.count
+        //        let rowInSection = myArrData[section]
+        //        return  rowInSection.count
+        return myArrData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! Cell_item
-        let dataItemName = myArrData[indexPath.section][indexPath.row].nameData
-        
+        //        let dataItemName = myArrData[indexPath.section][indexPath.row].nameData
+        let dataItemName = myArrData[indexPath.row].name + "-" + myArrData[indexPath.row].nameData
         
         cell.lblNameItem.text = dataItemName
-        cell.backgroundColor = .white
         cell.selectionStyle = .none
+        
+//        cell.imgNameItem.image = // viet ham load rieng
+
         return cell
         
     }
@@ -71,28 +71,18 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
     // xoa row
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
-            myArrData[indexPath.section].remove(at: indexPath.row)
+            myArrData.remove(at: indexPath.row)
             print("row \(indexPath.row)")
-            
             tableView.reloadData()
-            
         }
     }
     // move row
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         var myItemSource:myData!
-        myItemSource = (myArrData[sourceIndexPath.section])[sourceIndexPath.row]
-
-        myArrData[sourceIndexPath.section].remove(at: sourceIndexPath.row)
-
-
-        myArrData[destinationIndexPath.section].insert(myItemSource, at: destinationIndexPath.row)
-        
-     
+        myItemSource = myArrData[sourceIndexPath.row]
+        myArrData.remove(at: sourceIndexPath.row)
+        myArrData.insert(myItemSource, at: destinationIndexPath.row)
         tableView.reloadData()
-        
-        
     }
     
     // swipe
@@ -103,25 +93,21 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
     func itemTrailingSwipe(atIndex: IndexPath) -> UIContextualAction{
         let itemTrailing = UIContextualAction(style: .destructive, title: "Dow") { (action, view, completion) in
             completion(true)
-            print(self.myArrData[atIndex.section][atIndex.row].nameData)
-            
+            print(self.myArrData[atIndex.row].nameData)
         }
         itemTrailing.image = #imageLiteral(resourceName: "dow")
         itemTrailing.backgroundColor = .green
-    return itemTrailing
+        return itemTrailing
     }
     // load data
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let sectionA = myArrData.count - 1
-        let rowA = (myArrData[indexPath.section].count)
-        
-        if (indexPath.section == sectionA && indexPath.row == rowA) {
-            print("load data func") // append item -> reload
-        }
+        //        let sectionA = myArrData.count - 1
+        //        let rowA = (myArrData[indexPath.section].count)
+        //
+        //        if (indexPath.section == sectionA && indexPath.row == rowA) {
+        //            print("load data func") // append item -> reload
+        //        }
         
     }
-
-    
-    
 }
 

@@ -14,9 +14,9 @@
 //        super.viewDidLoad()
 //        let queue = DispatchQueue.global()
 //        let queue1 = DispatchQueue.global()
-//        
+//
 //        let group  = DispatchGroup()
-//        
+//
 //        queue.async(group: group, qos: .background, flags: .enforceQoS) {
 //            for _ in 0...5{
 //            print("queue ")

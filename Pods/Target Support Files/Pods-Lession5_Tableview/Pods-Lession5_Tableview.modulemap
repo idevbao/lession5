@@ -1,0 +1,6 @@
+framework module Pods_Lession5_Tableview {
+  umbrella header "Pods-Lession5_Tableview-umbrella.h"
+
+  export *
+  module * { export * }
+}
