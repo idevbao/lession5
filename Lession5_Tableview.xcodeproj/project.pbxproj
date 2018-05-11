@@ -17,7 +17,6 @@
 		E5141B5320A2AF80003C5270 /* myData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141B5220A2AF80003C5270 /* myData.swift */; };
 		E5141B5520A2B109003C5270 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141B5420A2B109003C5270 /* DataManager.swift */; };
 		E53F53F720A3F8680005D51F /* GCDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F53F620A3F8680005D51F /* GCDViewController.swift */; };
-		E576DD8420A544FE00322028 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576DD8320A544FE00322028 /* ViewController2.swift */; };
 		E578883A20A451A0004471DD /* URLSession_API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E578883920A451A0004471DD /* URLSession_API.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +35,6 @@
 		E5141B5220A2AF80003C5270 /* myData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myData.swift; sourceTree = "<group>"; };
 		E5141B5420A2B109003C5270 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		E53F53F620A3F8680005D51F /* GCDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDViewController.swift; sourceTree = "<group>"; };
-		E576DD8320A544FE00322028 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		E578883920A451A0004471DD /* URLSession_API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession_API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,7 +97,6 @@
 				E5141B4520A2A61C003C5270 /* Assets.xcassets */,
 				E5141B4720A2A61C003C5270 /* LaunchScreen.storyboard */,
 				E5141B4A20A2A61C003C5270 /* Info.plist */,
-				E576DD8320A544FE00322028 /* ViewController2.swift */,
 			);
 			path = Lession5_Tableview;
 			sourceTree = "<group>";
@@ -227,7 +224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5141B5120A2A67E003C5270 /* Cell_item.swift in Sources */,
-				E576DD8420A544FE00322028 /* ViewController2.swift in Sources */,
 				E5141B5520A2B109003C5270 /* DataManager.swift in Sources */,
 				E5141B4120A2A61B003C5270 /* ViewController.swift in Sources */,
 				E5141B3F20A2A61B003C5270 /* AppDelegate.swift in Sources */,
